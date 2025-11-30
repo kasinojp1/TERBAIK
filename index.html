@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ucapan Ulang Tahun</title>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(180deg, #ff9ecb, #ffcef2);
+        height: 100vh;
+        overflow-x: hidden;
+        text-align: center;
+    }
+
+    h1 {
+        margin-top: 20px;
+        color: #fff;
+        text-shadow: 0 0 10px rgba(255,255,255,0.9);
+        font-size: 28px;
+        font-weight: 700;
+    }
+
+    .balloon-container {
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 20px;
+        padding: 10px;
+    }
+
+    .balloon {
+        width: 110px;
+        height: 140px;
+        background: radial-gradient(circle at 30% 30%, #fff, #ff5fa2);
+        border-radius: 60% 60% 50% 50%;
+        position: relative;
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+
+    .balloon:active {
+        transform: scale(0.9);
+    }
+
+    .balloon:before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: -30px;
+        width: 2px;
+        height: 35px;
+        background: #ff5fa2;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    #wishBox {
+        margin-top: 30px;
+        padding: 20px;
+        display: none;
+        animation: fadeIn 0.5s ease;
+    }
+
+    textarea {
+        width: 80%;
+        height: 120px;
+        border-radius: 12px;
+        padding: 12px;
+        border: none;
+        outline: none;
+        resize: none;
+        font-size: 16px;
+    }
+
+    button {
+        margin-top: 12px;
+        padding: 10px 25px;
+        background: #ff3c8f;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    button:hover {
+        background: #ff1f7a;
+    }
+
+    #birthdayMsg {
+        margin-top: 40px;
+        font-size: 32px;
+        font-weight: 700;
+        color: #fff;
+        display: none;
+        animation: glow 1.5s infinite alternate;
+        text-shadow: 0 0 15px rgba(255,255,255,1);
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @keyframes glow {
+        from { text-shadow: 0 0 15px #fff; }
+        to { text-shadow: 0 0 30px #ff5fa2; }
+    }
+</style>
+</head>
+
+<body>
+
+<h1>Pecahkan 4 Balon 🎈</h1>
+
+<div class="balloon-container">
+    <div class="balloon" onclick="popBalloon(this)"></div>
+    <div class="balloon" onclick="popBalloon(this)"></div>
+    <div class="balloon" onclick="popBalloon(this)"></div>
+    <div class="balloon" onclick="popBalloon(this)"></div>
+</div>
+
+<div id="wishBox">
+    <h2>Tulis Harapan Kamu ✨</h2>
+    <textarea id="wishInput" placeholder="Tulis harapan terbaikmu di sini..."></textarea>
+    <br>
+    <button onclick="submitWish()">Submit</button>
+</div>
+
+<h1 id="birthdayMsg">🎉 SELAMAT ULANG TAHUN! 🎉</h1>
+
+<script>
+// Sound effect optional
+const popSound = new Audio("https://www.myinstants.com/media/sounds/pop.mp3");
+
+let popped = 0;
+
+function popBalloon(b) {
+    if (b.classList.contains("hidden")) return;
+
+    b.classList.add("hidden");
+    popped++;
+    popSound.play();
+
+    if (popped === 4) {
+        document.getElementById("wishBox").style.display = "block";
+    }
+}
+
+function submitWish() {
+    document.getElementById("wishBox").style.display = "none";
+    document.getElementById("birthdayMsg").style.display = "block";
+
+    startConfetti();
+}
+
+/* Simple confetti */
+function startConfetti() {
+    for (let i = 0; i < 80; i++) {
+        let conf = document.createElement("div");
+        conf.style.position = "fixed";
+        conf.style.width = "8px";
+        conf.style.height = "8px";
+        conf.style.background = "#" + Math.floor(Math.random()*16777215).toString(16);
+        conf.style.top = "-20px";
+        conf.style.left = Math.random() * window.innerWidth + "px";
+        conf.style.opacity = 0.9;
+        conf.style.borderRadius = "50%";
+        conf.style.animation = "fall 2.5s linear forwards";
+        document.body.appendChild(conf);
+
+        setTimeout(() => conf.remove(), 3000);
+    }
+}
+
+</script>
+
+<style>
+@keyframes fall {
+    from { transform: translateY(0); }
+    to { transform: translateY(120vh); }
+}
+</style>
+
+</body>
+</html>
